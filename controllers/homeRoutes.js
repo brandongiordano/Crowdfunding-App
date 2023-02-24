@@ -53,7 +53,7 @@ router.get('/blog/:id', async (req, res) => {
 	}
 });
 
-router.get('/dashboard', withAuth, async (req, res) => {
+router.get('/profile', withAuth, async (req, res) => {
 	try {
 		const userData = await User.findByPk(req.session.user_id, {
 			attributes: {
@@ -68,7 +68,7 @@ router.get('/dashboard', withAuth, async (req, res) => {
 			plain: true
 		});
 
-		res.render('dashboard', {
+		res.render('profile', {
 			...user,
 			logged_in: true
 		});
@@ -79,7 +79,7 @@ router.get('/dashboard', withAuth, async (req, res) => {
 
 router.get('/login', (req, res) => {
 	if (req.session.logged_in) {
-		res.redirect('/dashboard');
+		res.redirect('/profile');
 		return;
 	}
 
@@ -88,7 +88,7 @@ router.get('/login', (req, res) => {
 
 router.get('/signUp', (req, res) => {
 	if (req.session.logged_in) {
-		res.redirect('/dashboard');
+		res.redirect('/profile');
 		return;
 	}
 	res.render('signUp');
